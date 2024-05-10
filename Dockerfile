@@ -99,7 +99,9 @@ VOLUME /data/db /data/configdb
 
 # ensure that if running as custom user that "mongosh" has a valid "HOME"
 # https://github.com/docker-library/mongo/issues/524
-ENV HOME /data/db
+# Testing if HOME is breaking notebook running in lab
+#ENV HOME /data/db
+ENV HOME /home/jovyan
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
@@ -224,5 +226,6 @@ ENV DASK_SCHEDULER_PORT 8786
 ENV MONGODB_PORT 27017
 ENV JUPYTER_PORT 8888
 ENV MSPASS_ROLE all
+
 # ENV MSPASS_SCHEDULER dask
 ENTRYPOINT ["/usr/sbin/tini", "-s", "-g", "--", "/usr/sbin/start-mspass.sh"]
